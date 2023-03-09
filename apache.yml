@@ -2,7 +2,7 @@
 - name: create a directory
   hosts: localhost
   tasks:
-  - name: create a directory
+  - name: create a volume
     file:
       name: containers
       state: directory
@@ -19,8 +19,10 @@
 
   - name: creating a container    
     containers.podman.podman_container:
-      name: tomcat1
+      name: apache
       image: docker.io/httpd
+      volumes:
+        - "/home/krarjunjha/containers:/usr/local/apache2/htdocs"
       state: started
       detach: true
       ports:
